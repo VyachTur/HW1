@@ -5,7 +5,7 @@ namespace GameSystem
 {
     public class InputSystem : MonoBehaviour
     {
-        public event Action<float> OnHorizontalInputEvent;
+        public event Action<int> OnHorizontalInputEvent;
 
         private void Update() => 
             HandleHorizontalInput();
@@ -14,16 +14,16 @@ namespace GameSystem
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                OnHorizontalInput(-1f);
+                OnHorizontalInput(-1);
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                OnHorizontalInput(1f);
+                OnHorizontalInput(1);
             }
         }
 
-        private void OnHorizontalInput(float horizontalInput) => 
+        private void OnHorizontalInput(int horizontalInput) => 
             OnHorizontalInputEvent?.Invoke(horizontalInput);
     }
 }

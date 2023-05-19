@@ -7,11 +7,11 @@ namespace Player
         public Vector3 GetPosition() => 
             transform.position;
 
-        public void Move(float horizontalDirection)
+        public void SetPositionX(float xPosition)
         {
             Vector3 position = transform.position;
             
-            transform.position = new Vector3(position.x + horizontalDirection,
+            transform.position = new Vector3(xPosition,
                                     position.y,
                                     position.z);
         }
