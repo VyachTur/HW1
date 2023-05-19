@@ -8,8 +8,12 @@ public class RunForward : MonoBehaviour
     [SerializeField] private float _speed = 10f;
 
     private Rigidbody _playerRB;
-    private void Awake() => 
+
+    private void Awake()
+    {
         _playerRB = _player.GetComponent<Rigidbody>();
+        enabled = false;
+    }
 
     private void Start() => 
         MoveForward();

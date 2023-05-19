@@ -1,4 +1,5 @@
 using System;
+using StaticData;
 using UnityEngine;
 
 namespace GameSystem
@@ -14,12 +15,12 @@ namespace GameSystem
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                OnHorizontalInput(-1);
+                OnHorizontalInput(Constants.LeftDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                OnHorizontalInput(1);
+                OnHorizontalInput(Constants.RightDirection);
             }
         }
 

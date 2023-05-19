@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
+using GameManagers.GameSystem.InterfaceListeners;
 using Player;
+using StaticData;
 using TrackMarkers;
 using UnityEngine;
 
 namespace GameSystem
 {
-    public class TrackSwitcher : MonoBehaviour
+    public class TrackSwitcher : MonoBehaviour, IStartGameListener, IEndGameListener
     {
         [SerializeField] private PlayerObject _player;
         [SerializeField] private InputSystem _input;
@@ -17,6 +19,7 @@ namespace GameSystem
         private void Awake()
         {
             _currentTrack = GetTrackFromType(TrackType.CenterMarker);
+            enabled = false;
         }
 
         private void OnEnable() => 
@@ -27,10 +30,10 @@ namespace GameSystem
 
         private void OnSetPosition(int direction)
         {
-            if (direction == -1)
+            if (direction == Constants.LeftDirection)
                 _currentTrack = TrackLeft();
 
-            if (direction == 1)
+            if (direction == Constants.RightDirection)
                 _currentTrack = TrackRight();
             
             _player.SetPositionX(_currentTrack.GetTrackPositionX());
@@ -54,5 +57,11 @@ namespace GameSystem
 
         private TrackObject GetTrackFromType(TrackType type) => 
             _tracks.FirstOrDefault(track => track.TrackType == type);
+
+        void IStartGameListener.OnStartGame() => 
+            enabled = true;
+
+        void IEndGameListener.OnEndGame() => 
+            enabled = false;
     }
 }
