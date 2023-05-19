@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public class TrackController : MonoBehaviour
+    public class TrackSwitcher : MonoBehaviour
     {
         [SerializeField] private PlayerObject _player;
         [SerializeField] private InputSystem _input;

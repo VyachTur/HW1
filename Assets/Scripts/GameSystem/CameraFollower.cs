@@ -10,7 +10,7 @@ namespace GameSystem
         [SerializeField] private Vector3 _offset;
         [SerializeField] private float _followSpeed = 1f;
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             Vector3 newPosition = _player.GetPosition() + _offset;
             _camera.transform.position = Vector3.Lerp(_camera.transform.position, 
