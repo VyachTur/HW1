@@ -1,17 +1,16 @@
 using System;
 using System.Linq;
-using GameManagers.GameSystem.InterfaceListeners;
-using Player;
+using GameSystem.InterfaceListeners;
 using StaticData;
 using TrackMarkers;
 using UnityEngine;
 
 namespace GameSystem
 {
-    public class TrackSwitcher : MonoBehaviour, IStartGameListener, IEndGameListener
+    public class TrackSwitcher : MonoBehaviour, IStartGameListener, IEndGameListener, IPauseGameListener, IRestartGameListener
     {
-        [SerializeField] private PlayerObject _player;
-        [SerializeField] private InputSystem _input;
+        [SerializeField] private Player.Player _player;
+        [SerializeField] private Input _input;
         [SerializeField] private TrackObject[] _tracks;
 
         private TrackObject _currentTrack;
@@ -63,5 +62,11 @@ namespace GameSystem
 
         void IEndGameListener.OnEndGame() => 
             enabled = false;
+
+        void IPauseGameListener.OnPauseGame() => 
+            enabled = false;
+
+        void IRestartGameListener.OnRestartGame() => 
+            enabled = true;
     }
 }

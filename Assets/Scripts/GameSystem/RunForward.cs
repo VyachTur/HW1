@@ -1,10 +1,9 @@
-using System;
-using Player;
+using GameSystem.InterfaceListeners;
 using UnityEngine;
 
-public class RunForward : MonoBehaviour
+public class RunForward : MonoBehaviour, IStartGameListener, IEndGameListener, IPauseGameListener, IRestartGameListener
 {
-    [SerializeField] private PlayerObject _player;
+    [SerializeField] private Player.Player _player;
     [SerializeField] private float _speed = 10f;
 
     private Rigidbody _playerRB;
@@ -20,4 +19,16 @@ public class RunForward : MonoBehaviour
 
     private void MoveForward() => 
         _playerRB.velocity = Vector3.forward * _speed;
+
+    void IStartGameListener.OnStartGame() => 
+        enabled = true;
+
+    void IEndGameListener.OnEndGame() => 
+        enabled = false;
+
+    void IPauseGameListener.OnPauseGame() => 
+        enabled = false;
+
+    void IRestartGameListener.OnRestartGame() => 
+        enabled = true;
 }

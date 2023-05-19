@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerObject : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public Vector3 GetPosition() => 
             transform.position;

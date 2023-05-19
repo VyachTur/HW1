@@ -1,4 +1,4 @@
-namespace GameManagers.GameSystem.InterfaceListeners
+namespace GameSystem.InterfaceListeners
 {
     public interface IGameListener { }
 }

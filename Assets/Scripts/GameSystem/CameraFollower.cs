@@ -1,12 +1,13 @@
+using GameSystem.InterfaceListeners;
 using Player;
 using UnityEngine;
 
 namespace GameSystem
 {
-    public class CameraFollower : MonoBehaviour
+    public class CameraFollower : MonoBehaviour, IStartGameListener, IEndGameListener, IPauseGameListener, IRestartGameListener
     {
         [SerializeField] private Camera _camera;
-        [SerializeField] private PlayerObject _player;
+        [SerializeField] private Player.Player _player;
         [SerializeField] private Vector3 _offset;
         [SerializeField] private float _followSpeed = 1f;
 
@@ -17,6 +18,17 @@ namespace GameSystem
                                                         newPosition, 
                                                         _followSpeed * Time.deltaTime);
         }
-            
+
+        void IStartGameListener.OnStartGame() => 
+            enabled = true;
+
+        void IEndGameListener.OnEndGame() => 
+            enabled = false;
+
+        void IPauseGameListener.OnPauseGame() => 
+            enabled = false;
+
+        void IRestartGameListener.OnRestartGame() => 
+            enabled = true;
     }
 }
