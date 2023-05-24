@@ -8,7 +8,7 @@ namespace GameSystem
 {
     public class CrashListener : MonoBehaviour, IStartGameListener, IEndGameListener
     {
-        [SerializeField] private IGameManager _gameManager;
+        [SerializeField] private GameManager _gameManager;
         [SerializeField] private Hero _hero;
 
         public event Action<string> OnCrashEvent;

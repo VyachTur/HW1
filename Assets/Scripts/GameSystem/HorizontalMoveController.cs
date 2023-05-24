@@ -5,7 +5,6 @@ using StaticData;
 using TrackMarkers;
 using UnityEngine;
 using Player;
-using UnityEngine.Serialization;
 
 namespace GameSystem
 {

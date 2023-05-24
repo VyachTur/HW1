@@ -5,7 +5,6 @@ namespace GameSystem
         Off = 0,
         Loading = 1,
         Playing = 2,
-        Paused = 3,
-        Finished = 4
+        Paused = 3
     }
 }

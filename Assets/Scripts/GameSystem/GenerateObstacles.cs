@@ -19,7 +19,6 @@ namespace GameSystem
             InstantiateObstacles();
         }
 
-
         private void InstantiateObstacles()
         {
             for (int i = 1; i < Quantity; i++)

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GameSystem.InterfaceListeners;
 using Sirenix.OdinInspector;
@@ -6,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public sealed class GameManager : MonoBehaviour, IGameManager
+    public sealed class GameManager : MonoBehaviour
     {
         [ShowInInspector, ReadOnly]
         public GameState State => _state;
@@ -140,7 +139,7 @@ namespace GameSystem
         [Button]
         public void EndGame()
         {
-            if (_state != GameState.Playing && _state != GameState.Paused) return;
+            if (_state == GameState.Off) return;
             
             foreach (var listener in _listeners)
             {
@@ -150,7 +149,7 @@ namespace GameSystem
                 }
             }
 
-            _state = GameState.Finished;
+            _state = GameState.Off;
         }
     }
 }

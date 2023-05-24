@@ -1,7 +1,6 @@
 using GameSystem.InterfaceListeners;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameSystem
 {

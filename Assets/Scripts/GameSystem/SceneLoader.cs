@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+namespace GameSystem
 {
-    public void RestartCurrentScene() => 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public class SceneLoader : MonoBehaviour
+    {
+        public void RestartCurrentScene() => 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

@@ -11,7 +11,7 @@ namespace GameSystem
     // и отличий станет много
     public class FinishListener : MonoBehaviour, IStartGameListener, IEndGameListener
     {
-        [SerializeField] private IGameManager _gameManager;
+        [SerializeField] private GameManager _gameManager;
         [SerializeField] private Hero _hero;
         
         public event Action<string> OnFinishEvent;
