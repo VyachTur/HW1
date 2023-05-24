@@ -5,14 +5,11 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public class Input : MonoBehaviour, IStartGameListener, IEndGameListener, IRestartGameListener, IPauseGameListener
+    public sealed class Input : MonoBehaviour, IUpdateGameListener
     {
         public event Action<int> OnHorizontalInputEvent;
 
-        private void Awake() => 
-            enabled = false;
-
-        private void Update() => 
+        void IUpdateGameListener.OnUpdate(float deltaTime) =>
             HandleHorizontalInput();
 
         private void HandleHorizontalInput()
@@ -30,17 +27,5 @@ namespace GameSystem
 
         private void OnHorizontalInput(int horizontalInput) => 
             OnHorizontalInputEvent?.Invoke(horizontalInput);
-
-        void IStartGameListener.OnStartGame() => 
-            enabled = true;
-
-        void IEndGameListener.OnEndGame() => 
-            enabled = true;
-
-        void IRestartGameListener.OnRestartGame() => 
-            enabled = true;
-
-        void IPauseGameListener.OnPauseGame() => 
-            enabled = true;
     }
 }

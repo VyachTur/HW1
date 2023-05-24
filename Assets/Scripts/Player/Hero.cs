@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Hero : MonoBehaviour
     {
+        public event Action<string> OnCollisionEvent;
+            
         public Vector3 GetPosition() => 
             transform.position;
 
@@ -16,5 +18,8 @@ namespace Player
                                     position.y,
                                     position.z);
         }
+
+        private void OnCollisionEnter(Collision other) => 
+            OnCollisionEvent?.Invoke(other.transform.tag);
     }
 }
