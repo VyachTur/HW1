@@ -1,9 +1,17 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace GameSystem
 {
-    public class QuitGameManager : MonoBehaviour
+    public sealed class QuitGameManager : MonoBehaviour
     {
-        public void Quit() => Application.Quit();
+        public void Quit()
+        {
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#else
+            Application.Quit();
+#endif
+        }
     }
 }

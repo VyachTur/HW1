@@ -4,20 +4,13 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public class StartGameManager : MonoBehaviour
+    public sealed class GameLauncher : MonoBehaviour
     {
         [SerializeField] private GameManager _gameManager;
-        [SerializeField] private SceneLoader _sceneLoader;
         public event Action<int> OnTimerTickEvent;
     
-        public void StartGame() => 
+        public void LaunchGame() => 
             StartCoroutine(TimerTick());
-
-        public void RestartGame(float secondDelay = 0f)
-        {
-            Delay(secondDelay);
-            _sceneLoader.RestartCurrentScene();
-        }
 
         private IEnumerator TimerTick()
         {
@@ -28,11 +21,6 @@ namespace GameSystem
             }
         
             _gameManager.StartGame();
-        }
-
-        private IEnumerator Delay(float second)
-        {
-            yield return new WaitForSeconds(second);
         }
     }
 }

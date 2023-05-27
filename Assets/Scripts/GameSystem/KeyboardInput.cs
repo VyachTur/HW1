@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public sealed class Input : MonoBehaviour, IUpdateGameListener
+    public sealed class KeyboardInput : MonoBehaviour, IUpdateGameListener
     {
         public event Action<int> OnHorizontalInputEvent;
 

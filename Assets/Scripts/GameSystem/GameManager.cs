@@ -72,7 +72,6 @@ namespace GameSystem
                 _fixedUpdateListeners.Add(fixedUpdateListener);
         }
         
-        [Button]
         public void LoadGame()
         {
             if (_state != GameState.Off) return;
@@ -88,7 +87,6 @@ namespace GameSystem
             _state = GameState.Loading;
         }
 
-        [Button]
         public void StartGame()
         {
             if (_state != GameState.Loading) return;
@@ -104,7 +102,6 @@ namespace GameSystem
             _state = GameState.Playing;
         }
         
-        [Button]
         public void PauseGame()
         {
             if (_state != GameState.Playing) return;
@@ -120,7 +117,6 @@ namespace GameSystem
             _state = GameState.Paused;
         }
         
-        [Button]
         public void ResumeGame()
         {
             if (_state != GameState.Paused) return;
@@ -136,7 +132,6 @@ namespace GameSystem
             _state = GameState.Playing;
         }
         
-        [Button]
         public void EndGame()
         {
             if (_state == GameState.Off) return;

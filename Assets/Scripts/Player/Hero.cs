@@ -3,12 +3,17 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Hero : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody))]
+    public sealed class Hero : MonoBehaviour
     {
-        public event Action<string> OnCollisionEvent;
-            
-        public Vector3 GetPosition() => 
-            transform.position;
+        public event Action<Collision> OnCollisionEvent;
+        
+        private Rigidbody _heroRigidbody;
+
+        private void Awake() => 
+            _heroRigidbody = GetComponent<Rigidbody>();
+
+        public Vector3 GetPosition() => transform.position;
 
         public void SetPositionX(float xPosition)
         {
@@ -19,7 +24,10 @@ namespace Player
                                     position.z);
         }
 
+        public void SetVelocity(Vector3 velocity) => 
+            _heroRigidbody.velocity = velocity;
+
         private void OnCollisionEnter(Collision other) => 
-            OnCollisionEvent?.Invoke(other.transform.tag);
+            OnCollisionEvent?.Invoke(other);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public class CrashListener : MonoBehaviour, IStartGameListener, IEndGameListener
+    public sealed class HeroObstacleObserver : MonoBehaviour, IStartGameListener, IEndGameListener
     {
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private Hero _hero;
@@ -19,9 +19,9 @@ namespace GameSystem
         void IEndGameListener.OnEndGame() => 
             _hero.OnCollisionEvent -= OnCrash;
 
-        private void OnCrash(string marker)
+        private void OnCrash(Collision collision)
         {
-            if (marker == Constants.ObstacleTag)
+            if (collision.gameObject.CompareTag(Constants.ObstacleTag))
             {
                 OnCrashEvent?.Invoke("Проигрыш!");
                 _gameManager.EndGame();

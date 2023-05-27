@@ -6,10 +6,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    // Есть нарушение принципа DRY, но это сделано сознательно, т.к. в будущем,
-    // вполне вероятно, что логика классов CrashListener и FinishListener поменяется
-    // и отличий станет много
-    public class FinishListener : MonoBehaviour, IStartGameListener, IEndGameListener
+    public sealed class HeroFinishedObserver : MonoBehaviour, IStartGameListener, IEndGameListener
     {
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private Hero _hero;
@@ -22,9 +19,9 @@ namespace GameSystem
         void IEndGameListener.OnEndGame() => 
             _hero.OnCollisionEvent -= OnFinish;
         
-        private void OnFinish(string marker)
+        private void OnFinish(Collision collision)
         {
-            if (marker == Constants.FinishTag)
+            if (collision.gameObject.CompareTag(Constants.FinishTag))
             {
                 OnFinishEvent?.Invoke("Выигрыш!");
                 _gameManager.EndGame();

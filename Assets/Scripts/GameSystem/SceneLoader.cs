@@ -3,9 +3,12 @@ using UnityEngine.SceneManagement;
 
 namespace GameSystem
 {
-    public class SceneLoader : MonoBehaviour
+    public sealed class SceneLoader : MonoBehaviour
     {
-        public void RestartCurrentScene() => 
+        public void RestartSceneFromSeconds(float second = 0f) =>
+            Invoke(nameof(RestartCurrentScene), second);
+        
+        private void RestartCurrentScene() => 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

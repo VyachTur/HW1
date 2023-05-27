@@ -1,4 +1,4 @@
-namespace TrackMarkers
+namespace Tracks
 {
     public enum TrackType
     {

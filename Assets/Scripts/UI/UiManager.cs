@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class UiManager : MonoBehaviour, ILoadGameListener, IStartGameListener, IEndGameListener
+    public sealed class UiManager : MonoBehaviour, ILoadGameListener, IStartGameListener, IEndGameListener
     {
         [Header("Systems")] 
         [SerializeField] private GameManager _gameManager;
-        [SerializeField] private CrashListener _crashListener;
-        [SerializeField] private FinishListener _finishListener;
-        [SerializeField] private StartGameManager _startGameManager;
+        [SerializeField] private HeroObstacleObserver _heroObstacleObserver;
+        [SerializeField] private HeroFinishedObserver _heroFinishedObserver;
+        [SerializeField] private GameLauncher _gameLauncher;
+        [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private QuitGameManager _quitGameManager;
 
         #region UI Elements
@@ -41,7 +42,7 @@ namespace UI
         private void Start()
         {
             _gameManager.LoadGame();
-            _startGameManager.OnTimerTickEvent += ShowTimer;
+            _gameLauncher.OnTimerTickEvent += ShowTimer;
             
             _startGameButton.gameObject.SetActive(true);
             _startGameButton.onClick.AddListener(StartGame);
@@ -63,8 +64,8 @@ namespace UI
         {
             _timerText.enabled = false;
             
-            _crashListener.OnCrashEvent += GameEnd;
-            _finishListener.OnFinishEvent += GameEnd;
+            _heroObstacleObserver.OnCrashEvent += GameEnd;
+            _heroFinishedObserver.OnFinishEvent += GameEnd;
             
             _openMenuButton.onClick.AddListener(ShowPausedMenu);
             
@@ -75,8 +76,8 @@ namespace UI
 
         void IEndGameListener.OnEndGame()
         {
-            _crashListener.OnCrashEvent -= GameEnd;
-            _finishListener.OnFinishEvent -= GameEnd;
+            _heroObstacleObserver.OnCrashEvent -= GameEnd;
+            _heroFinishedObserver.OnFinishEvent -= GameEnd;
             
             _openMenuButton.onClick.RemoveListener(ShowPausedMenu);
             _startGameButton.onClick.RemoveListener(StartGame);
@@ -85,12 +86,12 @@ namespace UI
             _restartButton.onClick.RemoveListener(() => RestartGame(0f));
             _quitButton.onClick.RemoveListener(QuitGame);
             
-            _startGameManager.OnTimerTickEvent -= ShowTimer;
+            _gameLauncher.OnTimerTickEvent -= ShowTimer;
         }
         
         private void StartGame()
         {
-            _startGameManager.StartGame();
+            _gameLauncher.LaunchGame();
             _startGameButton.gameObject.SetActive(false);;
             _openMenuButton.gameObject.SetActive(true);
         }
@@ -103,7 +104,7 @@ namespace UI
         }
 
         private void RestartGame(float delaySecond) => 
-            _startGameManager.RestartGame(delaySecond);
+            _sceneLoader.RestartSceneFromSeconds(delaySecond);
 
         private void QuitGame() =>
             _quitGameManager.Quit();
@@ -112,14 +113,14 @@ namespace UI
         {
             ShowText(text);
             _openMenuButton.gameObject.SetActive(false);
-            RestartGame(5f);
+            
+            RestartGame(2f);
         }
         
         private void ShowText(string text)
         {
             _endGameText.text = text;
             _endGameText.enabled = true;
-            _startGameManager.RestartGame();
         }
 
         private void EndGameTextClear()
