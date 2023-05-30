@@ -1,54 +1,56 @@
+using Components;
+using GameSystem.InterfaceListeners;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace Enemy.Agents
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour
+    public sealed class EnemyAttackAgent : MonoBehaviour, IFixedUpdateGameListener
     {
         public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
 
         public event FireHandler OnFire;
 
-        [SerializeField] private WeaponComponent weaponComponent;
-        [SerializeField] private EnemyMoveAgent moveAgent;
-        [SerializeField] private float countdown;
+        [SerializeField] private WeaponComponent _weaponComponent;
+        [SerializeField] private EnemyMoveAgent _moveAgent;
+        [SerializeField] private float _countdown;
 
-        private GameObject targetObject;
-        private float currentTime;
-
-        public void SetTarget(GameObject target)
+        private GameObject _targetObject;
+        private float _currentTime;
+        
+        void IFixedUpdateGameListener.OnFixedUpdate(float deltaTime)
         {
-            targetObject = target;
-        }
-
-        public void Reset()
-        {
-            currentTime = countdown;
-        }
-
-        private void FixedUpdate()
-        {
-            if (!moveAgent.IsReached)
+            if (!_moveAgent.IsReached)
             {
                 return;
             }
             
-            if (!targetObject.GetComponent<HitPointsComponent>().IsHitPointsExists())
+            if (!_targetObject.GetComponent<HitPointsComponent>().IsHitPointsExists())
             {
                 return;
             }
 
-            currentTime -= Time.fixedDeltaTime;
-            if (currentTime <= 0)
+            _currentTime -= Time.fixedDeltaTime;
+            if (_currentTime <= 0)
             {
                 Fire();
-                currentTime += countdown;
+                _currentTime += _countdown;
             }
+        }
+
+        public void SetTarget(GameObject target)
+        {
+            _targetObject = target;
+        }
+
+        public void Reset()
+        {
+            _currentTime = _countdown;
         }
 
         private void Fire()
         {
-            var startPosition = weaponComponent.Position;
-            var vector = (Vector2) targetObject.transform.position - startPosition;
+            var startPosition = _weaponComponent.Position;
+            var vector = (Vector2) _targetObject.transform.position - startPosition;
             var direction = vector.normalized;
             OnFire?.Invoke(gameObject, startPosition, direction);
         }

@@ -1,42 +1,44 @@
+using GameSystem;
+using GameSystem.InterfaceListeners;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace Enemy.Agents
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour
+    public sealed class EnemyMoveAgent : MonoBehaviour, IFixedUpdateGameListener
     {
         public bool IsReached
         {
-            get { return isReached; }
+            get { return _isReached; }
         }
 
-        [SerializeField] private MoveComponent moveComponent;
+        [SerializeField] private HorizontalMoveController _horizontalMoveController;
 
-        private Vector2 destination;
+        private Vector2 _destination;
 
-        private bool isReached;
+        private bool _isReached;
 
-        public void SetDestination(Vector2 endPoint)
+        void IFixedUpdateGameListener.OnFixedUpdate(float deltaTime)
         {
-            destination = endPoint;
-            isReached = false;
-        }
-
-        private void FixedUpdate()
-        {
-            if (isReached)
+            if (_isReached)
             {
                 return;
             }
             
-            var vector = destination - (Vector2) transform.position;
+            var vector = _destination - (Vector2) transform.position;
             if (vector.magnitude <= 0.25f)
             {
-                isReached = true;
+                _isReached = true;
                 return;
             }
 
             var direction = vector.normalized * Time.fixedDeltaTime;
-            moveComponent.MoveByRigidbodyVelocity(direction);
+            // _horizontalMoveController.MoveByRigidbodyVelocity(direction);
+        }
+
+        public void SetDestination(Vector2 endPoint)
+        {
+            _destination = endPoint;
+            _isReached = false;
         }
     }
 }

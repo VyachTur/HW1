@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace ShootEmUp
+namespace Bullets
 {
     public sealed class Bullet : MonoBehaviour
     {
@@ -11,11 +10,9 @@ namespace ShootEmUp
         [NonSerialized] public bool IsPlayer;
         [NonSerialized] public int Damage;
 
-        [SerializeField]
-        private Rigidbody2D _rigidbody2D;
+        [SerializeField] private Rigidbody2D _rigidbody2D;
 
-        [FormerlySerializedAs("spriteRenderer")] [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
