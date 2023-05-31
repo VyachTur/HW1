@@ -14,12 +14,12 @@ namespace GameSystem
 
         private void HandleHorizontalInput()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 OnHorizontalInput(Constants.LeftDirection);
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 OnHorizontalInput(Constants.RightDirection);
             }

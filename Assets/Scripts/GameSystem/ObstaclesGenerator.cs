@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameSystem
 {
-    public sealed class ObstaclesOnTracksGenerator : MonoBehaviour, ILoadGameListener
+    public sealed class ObstaclesGenerator : MonoBehaviour, ILoadGameListener
     {
         [SerializeField] private Transform _obstaclesContainer;
         [SerializeField] private TracksManager _tracksManager;

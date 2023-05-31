@@ -4149,7 +4149,7 @@ GameObject:
   - component: {fileID: 2097032275}
   - component: {fileID: 2097032276}
   m_Layer: 0
-  m_Name: TracksMoveController
+  m_Name: HeroTrackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
