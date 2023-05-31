@@ -6,15 +6,8 @@ namespace Components
     {
         [SerializeField] private Transform _firePoint;
         
-        public Vector2 Position
-        {
-            get { return _firePoint.position; }
-        }
+        public Vector2 Position =>_firePoint.position;
 
-        public Quaternion Rotation
-        {
-            get { return _firePoint.rotation; }
-        }
-
+        public Quaternion Rotation => _firePoint.rotation;
     }
 }

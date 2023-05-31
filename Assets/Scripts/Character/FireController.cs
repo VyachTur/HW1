@@ -2,22 +2,36 @@ using Bullets;
 using Components;
 using GameSystem;
 using GameSystem.InterfaceListeners;
+using PlayerInput;
 using UnityEngine;
 
 namespace Character
 {
-    public sealed class BulletController : MonoBehaviour, IFixedUpdateGameListener
+    public sealed class FireController : MonoBehaviour //, IFixedUpdateGameListener
     {
         [SerializeField] private GameObject _character; 
         [SerializeField] private GameManager _gameManager;
+        [SerializeField] private KeyboardInput _input;
+        
+        
         [SerializeField] private BulletSystem _bulletSystem;
         [SerializeField] private BulletConfig _bulletConfig;
         
-        public bool FireRequired;
+        // public bool FireRequired;
+        
+        
+        
 
         private void OnEnable()
         {
+            _input.OnFireEvent += OnFire;
+            
             _character.GetComponent<HitPointsComponent>().HpEmpty += OnCharacterDeath;
+        }
+
+        private void OnFire()
+        {
+            OnFlyBullet();
         }
 
         private void OnDisable()
@@ -27,14 +41,14 @@ namespace Character
 
         private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
 
-        void IFixedUpdateGameListener.OnFixedUpdate(float deltaTime)
-        {
-            if (FireRequired)
-            {
-                OnFlyBullet();
-                FireRequired = false;
-            }
-        }
+        // void IFixedUpdateGameListener.OnFixedUpdate(float deltaTime)
+        // {
+        //     if (FireRequired)
+        //     {
+        //         OnFlyBullet();
+        //         FireRequired = false;
+        //     }
+        // }
 
         private void OnFlyBullet()
         {
@@ -49,7 +63,5 @@ namespace Character
                 Velocity = weapon.Rotation * Vector3.up * _bulletConfig.Speed
             });
         }
-
-        
     }
 }

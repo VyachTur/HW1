@@ -7,28 +7,22 @@ namespace PlayerInput
 {
     public sealed class KeyboardInput : MonoBehaviour, IUpdateGameListener
     {
-        public Action<int, float> OnHorizontalInputUpdatableEvent;
-        // public float HorizontalDirection { get; private set; }
-
-        // [SerializeField] private GameObject _character;
-
-        // [SerializeField] private BulletController _bulletController;
+        public event Action<int, float> OnHorizontalInputUpdatableEvent;
+        public event Action OnFireEvent;
 
         void IUpdateGameListener.OnUpdate(float deltaTime)
         {
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     _bulletController.FireRequired = true;
-            // }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                OnFireEvent?.Invoke();
+            }
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                // HorizontalDirection = -1;
                 OnHorizontalInputUpdatableEvent?.Invoke(Constants.LeftDirection, deltaTime);
             } 
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                // HorizontalDirection = 1;
                 OnHorizontalInputUpdatableEvent?.Invoke(Constants.RightDirection, deltaTime);
             }
             else
