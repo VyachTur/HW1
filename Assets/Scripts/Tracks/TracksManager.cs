@@ -9,6 +9,7 @@ namespace Tracks
         [field: SerializeField]
         public TrackObject[] Tracks { get; private set; }
         
+        // return left track if it possible
         public TrackObject TrackLeft(TrackObject currentTrack) => currentTrack.TrackType switch
         {
             TrackType.CenterObject => GetTrackFromType(TrackType.LeftObject),
@@ -17,6 +18,7 @@ namespace Tracks
             _ => throw new ArgumentOutOfRangeException()
         };
 
+        // return right track if it possible
         public TrackObject TrackRight(TrackObject currentTrack) => currentTrack.TrackType switch
         {
             TrackType.CenterObject => GetTrackFromType(TrackType.RightObject),
