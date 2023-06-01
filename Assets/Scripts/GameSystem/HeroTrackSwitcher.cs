@@ -6,7 +6,7 @@ using Tracks;
 
 namespace GameSystem
 {
-    public sealed class HeroTrackController : MonoBehaviour, IStartGameListener, IEndGameListener
+    public sealed class HeroTrackSwitcher : MonoBehaviour, IStartGameListener, IEndGameListener
     {
         [SerializeField] private Hero _hero;
         [SerializeField] private KeyboardInput _keyboardInput;
